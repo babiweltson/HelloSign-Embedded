@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <title>Babs project</title>
+  <script src="https://cdn.hellosign.com/public/js/embedded/v2.9.0/embedded.development.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+</head>
+<body>
+  <div class= "title">
+    <h1> My simple app </h1>
+
+  </div>
+  <form id="form">
+
+    Insert your client ID here <input type ="text" id="clientID"></br>
+
+    URL <input type="url" id="signUrl"><br>
+
+  Skip Domain verification?  <input type="checkbox" id="skipDomain" checked><br>
+  Close and redirect  <input type="checkbox" id="redirect"><br>
+
+      <input class ="button1" id="buttonSubmit" type="submit" value="Submit"/>
+
+  </form>
+
+</body>
+<script>
+    $("#form").submit(function(event){
+
+      event.preventDefault();
+
+      var form = $(event.form)
+      signUrl  = $("#signUrl").val();
+      clientId = $("#clientID").val();
+      skipDomain = $("#skipDomain").is(":checked");
+      redirectTo =
+
+      client = new HelloSign({
+        clientId: clientId
+      });
+
+      client.open(signUrl, {
+        locale : HelloSign.locales.EN_GB,
+        skipDomainVerification :skipDomain,
+        redirectTo: "https://www.rte.ie/"
+
+
+      });
+
+
+      client.on('error', (data) => {
+        this.dialog(`Something went wrong! Please try again.`);
+        client.close();
+});
+
+client.on('close', () => {
+console.log('The signature request window was closed');
+});
+    });
+
+
+
+</script>
+
+</html>
